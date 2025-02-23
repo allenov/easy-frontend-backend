@@ -1,0 +1,45 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres:13
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: student
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_DB: kubestore
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  backend:
+    build: ./backend
+    container_name: backend
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      PG_HOST: postgres
+      PG_PORT: "5432"
+      PG_USER: student
+      PG_PASSWORD: mysecretpassword
+      PG_DB: kubestore
+      PORT: 5006
+    ports:
+      - "5006:5006"
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    restart: always
+    depends_on:
+      - backend
+    environment:
+      BACKEND_URL: "http://localhost:5006"
+      PORT: 5005
+    ports:
+      - "5005:5005"
+
+volumes:
+  postgres_data:

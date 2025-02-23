@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Регистрация/Логин</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <img src="images.png" alt="Описание изображения" class="center-image">
+    <h1>Добро пожаловать</h1>
+    <div id="auth">
+      <div id="loginSection">
+        <h2>Логин</h2>
+        <form id="loginForm">
+          <input type="text" name="username" placeholder="Логин" required>
+          <input type="password" name="password" placeholder="Пароль" required>
+          <button type="submit">Войти</button>
+        </form>
+        <p>Нет аккаунта? <a href="#" id="showRegister">Зарегистрируйтесь</a></p>
+      </div>
+      <div id="registerSection" style="display:none;">
+        <h2>Регистрация</h2>
+        <form id="registerForm">
+          <input type="text" name="username" placeholder="Логин" required>
+          <input type="password" name="password" placeholder="Пароль" required>
+          <button type="submit">Зарегистрироваться</button>
+        </form>
+        <p>Уже есть аккаунт? <a href="#" id="showLogin">Войти</a></p>
+      </div>
+    </div>
+    <div id="app" style="display:none;">
+      <h2>Привет, <span id="displayUsername"></span>!</h2>
+      <p>Счетчик нажатий: <span id="counterValue">0</span></p>
+      <button id="incrementBtn">Крути барабань</button>
+    </div>
+    <div id="message"></div>
+  </div>
+  <script>
+    document.getElementById('showRegister').addEventListener('click', function(event) {
+      event.preventDefault();
+      document.getElementById('loginSection').style.display = 'none';
+      document.getElementById('registerSection').style.display = 'block';
+    });
+
+    document.getElementById('showLogin').addEventListener('click', function(event) {
+      event.preventDefault();
+      document.getElementById('registerSection').style.display = 'none';
+      document.getElementById('loginSection').style.display = 'block';
+    });
+  </script>
+  <script src="bundle.js"></script>
+</body>
+</html>
